@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Show Tasks{% endblock %}
+
+{% block content %}
+    <h2>Show Tasks</h2>
+    {% for task in tasks %}
+        <div class="card">
+            <h3>{{ task.task_title }}</h3>
+            <p>{{ task.task_description }}</p>
+            <p>Assign Date: {{ task.task_assign_date }}</p>
+            <p>Categories: {{ task.categories.all|join:", " }}</p>
+            {% if task.is_completed %}
+                <p>Completed</p>
+            {% else %}
+                <a href="{% url 'edit_task' task.id %}">Edit</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
